@@ -8,10 +8,13 @@
           <nuxt-link to="/">Home</nuxt-link>
         </li>
         <li>
-          <nuxt-link to="/">About</nuxt-link>
+          <nuxt-link to="/about">About</nuxt-link>
         </li>
         <li>
-          <nuxt-link to="/">Contact</nuxt-link>
+          <nuxt-link to="/contact">Contact</nuxt-link>
+        </li>
+        <li>
+          <nuxt-link to="/donate">Donate</nuxt-link>
         </li>
       </ul>
 

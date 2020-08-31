@@ -3,13 +3,21 @@
     <img alt="Vue logo" src="./assets/logo.png">
     <HelloWorld :rows="6" :columns="5"/>
     <Botton @click="handleClick">
-      <i class="fas fa-cat"></i>
-      Botón de ejemplo
+      <i class="fas fa-cat">Botón de ejemplo</i>
     </Botton>
     <div v-if="result" class="content">
       <p>User ID: {{ result.userId }}</p>
       <p>Title: {{ result.title }}</p>
   </div>
+  <div>
+  {{ 2368463513.34684651346 | decimals(5) | currency }}
+  <div>
+    <div><span>{{ date | date }}</span>
+      <h2>{{ new Date() | date }}</h2>
+    </div>
+  </div>
+</div>
+
   </div>
 </template>
 
@@ -17,9 +25,11 @@
 import axios from "axios";
 import HelloWorld from './components/HelloWorld.vue'
 import Botton from './components/Botton.vue'
+import Vue2Filters from 'vue2-filters'
 
 export default {
   name: 'App',
+  mixins: [Vue2Filters.mixin],
   components: {
     HelloWorld,
     Botton
@@ -44,10 +54,10 @@ export default {
       console.log(result);
     });
   }, */
-  /* async created() {
+  async created() {
     let response = await axios.get("https://jsonplaceholder.typicode.com/todos/1");
     this.result = response.data;
-  } */
+  },
   mehtods: {
     handleClick(info) {
       console.log("Click event on the button of the children with: "+ info)
@@ -71,10 +81,10 @@ export default {
       console.log(response.data);
     }
   },
-  created() {
+  /* created() {
     this.getTodos();
     this.modifyPost();
-  }
+  } */
 }
 </script>
 

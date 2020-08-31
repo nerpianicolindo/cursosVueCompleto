@@ -9,6 +9,7 @@
     "generate": "nuxt generate"
   },
   "dependencies": {
+    "node": "^14.8.0",
     "nuxt": "^2.14.0"
   },
   "devDependencies": {}
