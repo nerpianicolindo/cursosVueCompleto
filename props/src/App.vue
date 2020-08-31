@@ -1,23 +1,27 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
+    <img alt="Vue logo" src="./assets/logo.png"/>
     <HelloWorld :rows="6" :columns="5"/>
-    <Botton @click="handleClick">
+    <Botton>
       <i class="fas fa-cat">Botón de ejemplo</i>
     </Botton>
     <div v-if="result" class="content">
       <p>User ID: {{ result.userId }}</p>
       <p>Title: {{ result.title }}</p>
-  </div>
-  <div>
-  {{ 2368463513.34684651346 | decimals(5) | currency }}
-  <div>
-    <div><span>{{ date | date }}</span>
-      <h2>{{ new Date() | date }}</h2>
     </div>
-  </div>
-</div>
-
+    {{ 2368463513.34684651346 | decimals(5) | currency }}
+    <div>
+      <div>
+        <span>{{ new Date | date }}</span>
+        <h2>{{ new Date() | date }}</h2>
+      </div>
+    </div>
+    <div class="component">
+      <div v-void></div>
+    </div>
+    <div v-color="'red'">Hola mundo</div>
+    <input type="text" v-sticky:bottom()/>
+    <span v-hotkey="keymap" v-show="show"> Press `ctrl + esc` to toggle me! Hold `enter` to hide me! </span>
   </div>
 </template>
 
@@ -33,6 +37,11 @@ export default {
   components: {
     HelloWorld,
     Botton
+  },
+  computed: {
+    bottom(){
+     return "cosas y cosas" 
+    }
   },
   data: () => ({
     result: null
