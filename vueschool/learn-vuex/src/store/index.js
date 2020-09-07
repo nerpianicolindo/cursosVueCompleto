@@ -1,5 +1,6 @@
 import Vuex from 'vuex'
 import Vue from 'vue'
+import shop from '@/api/shop'
 
 Vue.use(Vuex)
 
@@ -11,16 +12,22 @@ export default new Vuex.Store({
 
   //Getters es equivalente a computed properties
   getters: {
-    productsCount() {
-      // ...
+    availableProducts(state, getters) {
+      return state.products.filter(product => product.inventory > 0)
     }
   },
 
   //Actions es equivalente a mehtods
   actions: {
     // Hacer la llamada
-    fetchProducts() {
-      // ...
+    fetchProducts({commit}) {
+      return new Promise((resolve, reject) => {
+        shop.getProducts(products => {
+          commit('setProducts', products)
+          resolve()
+        })
+      })
+
     }
   },
 
