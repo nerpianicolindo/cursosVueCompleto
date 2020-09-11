@@ -29,7 +29,7 @@ export default {
   },
 
   methods: {
-    ...mapActions(['checkout'])
+    ...mapActions('cart',['checkout'])
   }
 }
 </script>
