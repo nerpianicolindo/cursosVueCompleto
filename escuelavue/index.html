@@ -16,6 +16,14 @@
         <img :src="urlCompleta" alt="">
         <!-- <input type="text" v-model="enlace">
         <a v-bind:href="enlace">{{ enlace }}</a> -->
+        <hr>
+        <br>
+        <input type="range" v-model="tiempo">{{ tiempo }}
+        <br>
+        <input type="search" v-model="busqueda" placeholder="Busqueda por nombre">
+        <p v-for="(valor, propiedad) in usuario">{{ valor }} : {{ propiedad }}</p>
+        <hr>
+        <li v-for="tarea in filtroTareas">{{ tarea.nombre }} - {{ tarea.tiempo }}</li>
 
     </div>
     <script src="https://cdn.jsdelivr.net/npm/vue"></script>
@@ -28,11 +36,31 @@
                 baseUrl: "https://placekitten.com",
                 ancho: 50,
                 alto: 50,
+                tiempo: 0,
+                busqueda: '',
+                usuario: {
+                    username: 'juanwmedia',
+                    role: 'admin'
+                },
+                tareas: [
+                    {nombre: 'Aprender JavaScript moderno', tiempo: 3},
+                    {nombre: 'Aprender Vue.js', tiempo: 7},
+                    {nombre: 'Reparar el coche', tiempo: 22},
+                    {nombre: 'Viajar más', tiempo: 16},
+                    {nombre: 'Comprar la cena', tiempo: 12},
+                    {nombre: 'Mejorar como desarrollador', tiempo: 9},
+                    {nombre: 'Dar un curso', tiempo: 14},
+                ]
 
             },
             computed: {
                 urlCompleta() {
                     return `${this.baseUrl}/${this.ancho * 3}/${this.alto*3}`
+                },
+                filtroTareas() {
+                    return this.tareas.filter(tarea => {
+                        return tarea.tiempo <= this.tiempo && tarea.nombre.includes(this.busqueda);
+                    })
                 }
             }
         });
