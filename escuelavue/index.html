@@ -28,6 +28,15 @@
         <p v-for="(valor, propiedad) in usuario">{{ valor }} : {{ propiedad }}</p>
         <hr>
         <li v-for="tarea in filtroTareas">{{ tarea.nombre }} - {{ tarea.tiempo }}</li>
+        <hr>
+        <ul>
+            <li v-for="usuario in usuarios">
+                {{ usuario.name }}
+            </li>
+        </ul>
+        <pre>
+            {{ $data }}
+        </pre>
 
     </div>
     <script src="https://cdn.jsdelivr.net/npm/vue"></script>
@@ -47,7 +56,7 @@
         // };
 
         
-        const app = new Vue({
+        const vm = new Vue({
             el: "#app",
             data: {
                 tema: "Vue Devtools",
@@ -61,6 +70,7 @@
                     username: 'juanwmedia',
                     role: 'admin'
                 },
+                usuarios: [],
                 nuevaTarea: '',
                 tareas: [
                     {nombre: 'Aprender JavaScript moderno', tiempo: 3},
@@ -72,6 +82,12 @@
                     {nombre: 'Dar un curso', tiempo: 14},
                 ]
 
+            },
+            created() {
+                var url = "https://jsonplaceholder.typicode.com/users";
+                fetch(url)
+                    .then(respuesta => respuesta.json())
+                        .then(respuesta => this.usuarios = respuesta)
             },
             methods: {
                 guardarTarea(){
