@@ -1,7 +1,7 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
-    <meta charset="UTF-8">
+    <meta charset="western">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Vue</title>
 </head>
@@ -34,9 +34,11 @@
                 {{ usuario.name }}
             </li>
         </ul>
-        <pre>
-            {{ $data }}
-        </pre>
+        <hr>
+        <h3>Cambia tu contraseña</h3>
+        <input type="text" v-model="password">
+        <br>
+        <p>{{ estado }}</p>
 
     </div>
     <script src="https://cdn.jsdelivr.net/npm/vue"></script>
@@ -80,8 +82,30 @@
                     {nombre: 'Comprar la cena', tiempo: 12},
                     {nombre: 'Mejorar como desarrollador', tiempo: 9},
                     {nombre: 'Dar un curso', tiempo: 14},
-                ]
+                ],
+                password: null,
+                estado: "Introduce nueva contraseña...",
+                novalidos: [
+                    "admin",
+                    "12345",
+                    "password"
+                ],
+            },
+            watch: {
+                password(nuevo, antiguo) {
+                    if (this.novalidos.indexOf(nuevo)> -1) {
+                        this.estado = "Contraseña no valida";
+                        return false;
+                    }
 
+                    if (nuevo.length < 5) {
+                        this.estado = "La contraseña debe tener al menos 5 caracteres";
+                        return false;
+                    }
+
+
+                    this.estado ="Contraseña valida";
+                }
             },
             created() {
                 var url = "https://jsonplaceholder.typicode.com/users";
