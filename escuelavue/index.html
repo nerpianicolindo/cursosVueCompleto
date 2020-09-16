@@ -30,8 +30,8 @@
         <li v-for="tarea in filtroTareas">{{ tarea.nombre }} - {{ tarea.tiempo }}</li>
         <hr>
         <ul>
-            <li v-for="usuario in usuarios">
-                {{ usuario.name }}
+            <li v-for="usuario in nombreCompleto">
+                {{ usuario | mayusculas | acortado(10) }}
             </li>
         </ul>
         <hr>
@@ -108,10 +108,10 @@
                 }
             },
             created() {
-                var url = "https://jsonplaceholder.typicode.com/users";
+                var url = "https://randomuser.me/api/?results=50";
                 fetch(url)
                     .then(respuesta => respuesta.json())
-                        .then(respuesta => this.usuarios = respuesta)
+                        .then(respuesta => this.usuarios = respuesta.results)
             },
             methods: {
                 guardarTarea(){
@@ -131,6 +131,17 @@
                     return this.tareas.filter(tarea => {
                         return tarea.tiempo <= this.tiempo && tarea.nombre.includes(this.busqueda);
                     })
+                },
+                nombreCompleto() {
+                    return this.usuarios.map(usuario => `Nombre: ${usuario.name.title}: ${usuario.name.first} ${usuario.name.last}`);
+                }
+            },
+            filters: {
+                mayusculas(datos) {
+                    return datos.toUpperCase();
+                },
+                acortado(datos, cantidad) {
+                    return datos.substring(0,cantidad) + '...'
                 }
             }
         });
