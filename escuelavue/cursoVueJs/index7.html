@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Add Users</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.min.js"></script>
+</head>
+<body>
+  <div id="app">
+    <!-- Add missing attributes to input, button, tr, and td elements -->
+    First name: <input v-model="users.firstName" type="text">
+    Last name:  <input v-model="users.lastName" type="text">
+    <button v-on:click="guardar(users)">Add user</button>
+
+    <table>
+      <caption>Users</caption>
+      <thead>
+        <tr>
+          <th>Index</th>
+          <th>First name</th>
+          <th>Last name</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr v-for="(item, index) in users">
+          <td>{{index}}</td>
+          <td>{{item.firstName}}</td>
+          <td>{{item.lastName}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <script>
+    var vm = new Vue({
+      el: '#app',
+      // Modify Vue object here
+        data: {
+            //index : 1,
+            users: [
+                {
+                    //index: '',
+                    firstName: '',
+                    lastName: ''
+                }
+            ]
+        },
+        methods: {
+            guardar(users) {
+                this.users.push({firstName: users.firstName, 
+                    lastName: users.lastName});
+                this.users.firstName= "";
+                this.users.lastName="";
+                //this.index++;
+            }
+        }
+    });
+
+    // Example case
+    if(vm.users) {
+      vm.users.push({firstName: "John", lastName: "Doe" }); 
+    }
+
+    document.getElementsByTagName("input")[0].value = "Ann";
+    document.getElementsByTagName("input")[0].dispatchEvent(new Event('input'));
+    document.getElementsByTagName("input")[1].value = "Franklin";
+    document.getElementsByTagName("input")[1].dispatchEvent(new Event('input'));
+    document.getElementsByTagName("button")[0].click();
+    
+    setTimeout(() => console.log(document.querySelector("tbody").innerHTML));
+  </script>
+</body>
+</html>
